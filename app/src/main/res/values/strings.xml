@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Baumanière</string>
+    <string name="welcome_text">Bienvenue chez</string>
+    <string name="imageBaumaniere_desc">Image Baumanière</string>
+    <string name="button_text_starter">Starter</string>
+    <string name="button_text_main">Main</string>
+    <string name="button_text_dessert">Dessert</string>
+    <string name="button_text_hotel">Hotel</string>
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HomeActivity">
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="108dp"
+            android:fontFamily="cursive"
+            android:text="@string/welcome_text"
+            android:textColor="@color/azure_500"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageBaumaniere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="116dp"
+            android:contentDescription="@string/imageBaumaniere_desc"
+            android:src="@drawable/logo_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_2" />
+
+        <Button
+            android:id="@+id/buttonStarter"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="308dp"
+            android:background="@color/azure_500"
+            android:backgroundTint="@color/azure_500"
+            android:text="@string/button_text_starter"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/azure_500" />
+
+        <Button
+            android:id="@+id/buttonMain"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/azure_500"
+            android:backgroundTint="@color/azure_500"
+            android:text="@string/button_text_main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonStarter" />
+
+        <Button
+            android:id="@+id/buttonDessert"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/azure_500"
+            android:backgroundTint="@color/azure_500"
+            android:text="@string/button_text_dessert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonMain" />
+
+        <Button
+            android:id="@+id/buttonHotel"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/azure_500"
+            android:backgroundTint="@color/azure_500"
+            android:text="@string/button_text_hotel"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonDessert"
+            app:rippleColor="@color/azure_500" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
