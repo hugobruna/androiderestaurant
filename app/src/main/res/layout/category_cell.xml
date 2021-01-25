@@ -3,28 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewDish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="4dp" >
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:id="@+id/card_dish"
+            android:layout_width="361dp"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textTitleDish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/app_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textPriceDish"
@@ -33,26 +27,38 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/app_name"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageDish"
                 app:layout_constraintTop_toTopOf="@id/textTitleDish" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/redirectButtonDish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:clickable="true"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                app:layout_constraintStart_toEndOf="@+id/textPriceDish"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_view" />
+
+            <TextView
+                android:id="@+id/textTitleDish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/app_name"
+                app:layout_constraintStart_toEndOf="@+id/imageDish"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageDish"
                 android:layout_width="171dp"
                 android:layout_height="92dp"
-                android:layout_marginEnd="37dp"
-                app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+                android:contentDescription="@string/app_name"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.constraintlayout.widget.ConstraintLayout>

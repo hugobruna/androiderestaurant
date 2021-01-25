@@ -25,8 +25,14 @@ class CategoryListAdapter(val categories: List<String>):
 
     class CategoryHolder(binding: CategoryCellBinding): RecyclerView.ViewHolder(binding.root) {
         val title = binding.textTitleDish
+        /*
         val photo = binding.imageDish
         val price = binding.textPriceDish
+
+        var bindingDish = CategoryCellBinding.inflate(layoutInflater)
+        bindingDish.
+
+         */
     }
 
 
