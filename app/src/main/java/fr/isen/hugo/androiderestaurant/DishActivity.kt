@@ -10,8 +10,11 @@ private lateinit var binding: ActivityDishBinding
 class DishActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityDishBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val dishDetails = (intent.getSerializableExtra("Dish") as? Dish)
+
         if (dishDetails != null) {
             title = dishDetails.name
         }
@@ -22,8 +25,9 @@ class DishActivity : AppCompatActivity() {
             binding.textDishTitle.text = dishDetails.name
         }
         if (dishDetails != null) {
-            binding.textDishDesc.text = dishDetails.ingredients.joinToString { ", " }
+            binding.textDishDesc.text = dishDetails.ingredients.map { it.name }.joinToString(", ")
         }
-        setContentView(R.layout.activity_dish)
+
+
     }
 }
