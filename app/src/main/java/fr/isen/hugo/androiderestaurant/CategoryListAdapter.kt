@@ -3,12 +3,13 @@ package fr.isen.hugo.androiderestaurant
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import fr.isen.hugo.androiderestaurant.databinding.ActivityCategoryListBinding
+import com.squareup.picasso.Picasso
 import fr.isen.hugo.androiderestaurant.databinding.CategoryCellBinding
+import fr.isen.hugo.androiderestaurant.model.Dish
 import java.util.*
 
 
-class CategoryListAdapter(val categories: List<String>):
+class CategoryListAdapter(val categories: List<Dish>, private val categoriesClickListener: (String) -> Unit):
     RecyclerView.Adapter<CategoryListAdapter.CategoryHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -19,20 +20,18 @@ class CategoryListAdapter(val categories: List<String>):
     }
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int){
-        holder.title.text = categories[position]
+        holder.title.text = categories[position].name
+        Picasso.get().load(categories[position].getFirstImage()).into(holder.photo)
+        holder.price.text = categories[position].getFormattedPrice()
+        holder.layout.setOnClickListener { categoriesClickListener.invoke(categories[position].name) }
     }
     override fun getItemCount(): Int = categories.size
 
     class CategoryHolder(binding: CategoryCellBinding): RecyclerView.ViewHolder(binding.root) {
-        val title = binding.textTitleDish
-        /*
-        val photo = binding.imageDish
-        val price = binding.textPriceDish
-
-        var bindingDish = CategoryCellBinding.inflate(layoutInflater)
-        bindingDish.
-
-         */
+        val title = binding.textTitleDishCategory
+        var photo = binding.imageDish
+        val price = binding.textPriceDishCategory
+        val layout = binding.root
     }
 
 

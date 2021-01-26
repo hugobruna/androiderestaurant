@@ -6,4 +6,6 @@
     <string name="button_text_main">Main</string>
     <string name="button_text_dessert">Dessert</string>
     <string name="button_text_hotel">Hotel</string>
+    <string name="image_dish">photo of dish</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>
