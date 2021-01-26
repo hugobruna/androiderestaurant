@@ -1,12 +1,14 @@
 package fr.isen.hugo.androiderestaurant
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.isen.hugo.androiderestaurant.databinding.CategoryCellBinding
 import fr.isen.hugo.androiderestaurant.model.Dish
-import java.util.*
+
 
 
 class CategoryListAdapter(val categories: List<Dish>, private val categoriesClickListener: (String) -> Unit):
@@ -23,7 +25,9 @@ class CategoryListAdapter(val categories: List<Dish>, private val categoriesClic
         holder.title.text = categories[position].name
         Picasso.get().load(categories[position].getFirstImage()).into(holder.photo)
         holder.price.text = categories[position].getFormattedPrice()
-        holder.layout.setOnClickListener { categoriesClickListener.invoke(categories[position].name) }
+        holder.layout.setOnClickListener { categoriesClickListener.invoke(categories[position].name)
+
+        }
     }
     override fun getItemCount(): Int = categories.size
 

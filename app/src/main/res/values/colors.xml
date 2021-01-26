@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="gray_300">#D1D5DB</color>
+    <color name="gray_300">#CECECE</color>
     <color name="gray_500">#6B7280</color>
     <color name="gray_700">#374151</color>
-    <color name="azure_500">#007FFF</color>
-    <color name="azure_700">#0072E6</color>
+    <color name="azure_500">#416aef</color>
+    <color name="azure_700">#658dc6</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

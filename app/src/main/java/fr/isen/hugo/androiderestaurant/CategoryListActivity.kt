@@ -47,7 +47,7 @@ class CategoryListActivity : AppCompatActivity() {
                  */
             }
         },{
-            Log.e("CategoryListAnctivity",  it.toString())
+            Log.e("CategoryListActivity",  it.toString())
         })
         requestQueue.add(jsonObjectRequest)
     }
