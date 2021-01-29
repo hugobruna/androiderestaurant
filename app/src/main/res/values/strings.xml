@@ -11,4 +11,5 @@
     <string name="text_quantity">Quantity</string>
     <string name="text_desc_plus">plus</string>
     <string name="text_desc_minus">minus</string>
+    <string name="default_quantity">1</string>
 </resources>

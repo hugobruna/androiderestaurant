@@ -8,34 +8,29 @@
     tools:visibility="visible">
 
     <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="wrap_content"
+        android:id="@+id/carousselPictureDish"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+    </androidx.viewpager2.widget.ViewPager2>
 
-    <Button
-        android:id="@+id/buttonAddCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/add_to_cart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textDishTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="263dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/carousselPictureDish" />
 
     <TextView
         android:id="@+id/textDishDesc"
@@ -59,64 +54,96 @@
         android:fontFamily="@font/baloo"
         android:text="@string/app_name"
         android:textColor="@color/azure_500"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textDishDesc" />
 
-    <EditText
-        android:id="@+id/editNumberDish"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="number"
-        android:labelFor="@id/textQuantity"
-        android:textColor="@color/azure_500"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton2"
-        app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
-        app:layout_constraintTop_toBottomOf="@+id/textPriceDish" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:clickable="true"
-        android:contentDescription="@string/text_desc_plus"
-        android:focusable="true"
-        app:backgroundTint="@color/gray_300"
-        app:layout_constraintEnd_toStartOf="@+id/editNumberDish"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPriceDish"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        android:layout_width="wrap_content" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:clickable="true"
-        android:contentDescription="@string/text_desc_minus"
-        android:focusable="true"
-        app:backgroundTint="@color/gray_300"
+        android:background="@color/gray_300"
+        android:backgroundTint="@color/gray_300"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editNumberDish"
-        app:layout_constraintTop_toBottomOf="@+id/textPriceDish"
-        app:srcCompat="@drawable/ic_baseline_remove_24" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/textQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/text_quantity"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton2"
-        app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
-        app:layout_constraintTop_toBottomOf="@+id/editNumberDish" />
+        <Button
+            android:id="@+id/buttonAddCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_to_cart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editNumberDish"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="number"
+            android:labelFor="@id/textQuantity"
+            android:text="@string/default_quantity"
+            android:textAlignment="center"
+            android:textColor="@color/azure_500"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddCart"
+            app:layout_constraintEnd_toStartOf="@+id/discreaseButton"
+            app:layout_constraintStart_toEndOf="@+id/increaseButton" />
+
+        <TextView
+            android:id="@+id/textQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="91dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/text_quantity"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/editNumberDish"
+            app:layout_constraintEnd_toStartOf="@+id/discreaseButton"
+            app:layout_constraintStart_toEndOf="@+id/increaseButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/discreaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/text_desc_minus"
+            android:focusable="true"
+            app:backgroundTint="@color/azure_500"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editNumberDish"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/ic_baseline_remove_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/increaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/text_desc_plus"
+            android:focusable="true"
+            app:backgroundTint="@color/azure_500"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddCart"
+            app:layout_constraintEnd_toStartOf="@+id/editNumberDish"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

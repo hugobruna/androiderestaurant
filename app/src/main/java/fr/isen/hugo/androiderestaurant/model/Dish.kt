@@ -11,7 +11,7 @@ data class Dish (@SerializedName("name_en") val name: String, @SerializedName("i
     fun getFirstImage() = if (images.isNotEmpty() && images[0].isNotEmpty()){
         images[0]
     } else {
-        null
+        "https://semantic-ui.com/images/wireframe/image.png"
     }
 
     fun getAllImages() = if (images.isNotEmpty() && images.any {it.isNotEmpty()}){
