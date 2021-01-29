@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.hugo.androiderestaurant.databinding.ActivityDishBinding
+import fr.isen.hugo.androiderestaurant.model.Cart
 import fr.isen.hugo.androiderestaurant.model.Dish
+import fr.isen.hugo.androiderestaurant.model.ItemCart
 
 private lateinit var binding: ActivityDishBinding
 
@@ -49,7 +51,7 @@ class DishActivity : AppCompatActivity() {
 
         binding.increaseButton.setOnClickListener {
             val quantity = binding.editNumberDish.text.toString().toInt()
-            binding.editNumberDish.setText((quantity + 1).toString())
+            binding.editNumberDish.setText((quantity + 1))
         }
 
         binding.increaseButton.setOnClickListener {
@@ -60,8 +62,22 @@ class DishActivity : AppCompatActivity() {
         }
 
         binding.buttonAddCart.setOnClickListener {
-            Snackbar.make(binding.root, "Added to cart", Snackbar.LENGTH_LONG).show()
+            if (dishDetails != null) {
+                addToCart(dishDetails)
+                Snackbar.make(binding.root, "Added to cart", Snackbar.LENGTH_LONG).show()
+            }
         }
+    }
+
+    private fun addToCart(dish: Dish){
+        val itemCart = ItemCart(dish,binding.editNumberDish.text.toString().toInt())
+        val cart = cartReadFromFile(applicationContext)
+        if(cart.itemCarts != null){
+            cart.itemCarts.add(itemCart)
+        } else {
+            cart.itemCarts = mutableListOf(itemCart)
+        }
+        cartWriteToFile(cart, applicationContext)
     }
 
 
