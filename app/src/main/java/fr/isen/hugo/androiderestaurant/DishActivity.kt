@@ -14,7 +14,7 @@ import fr.isen.hugo.androiderestaurant.model.ItemCart
 
 private lateinit var binding: ActivityDishBinding
 
-class DishActivity : AppCompatActivity() {
+class DishActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDishBinding.inflate(layoutInflater)
@@ -50,14 +50,14 @@ class DishActivity : AppCompatActivity() {
         }
 
         binding.increaseButton.setOnClickListener {
-            val quantity = binding.editNumberDish.text.toString().toInt()
-            binding.editNumberDish.setText((quantity + 1))
+            val quantity = binding.editNumberDish.text.toString().toInt() +1
+            binding.editNumberDish.setText(quantity)
         }
 
         binding.increaseButton.setOnClickListener {
-            val quantity = binding.editNumberDish.text.toString().toInt()
+            val quantity = binding.editNumberDish.text.toString().toInt() -1
             if(quantity > 1) {
-                binding.editNumberDish.setText(quantity - 1)
+                binding.editNumberDish.setText(quantity)
             }
         }
 
@@ -70,8 +70,10 @@ class DishActivity : AppCompatActivity() {
     }
 
     private fun addToCart(dish: Dish){
-        val itemCart = ItemCart(dish,binding.editNumberDish.text.toString().toInt())
+        val quantity : Int = binding.editNumberDish.text.toString().toInt()
+        val itemCart = ItemCart(dish, quantity)
         val cart = cartReadFromFile(applicationContext)
+        setSharedPrefs(applicationContext, "cart_item_number", (quantity + getNumberItemCart(applicationContext)).toString())
         if(cart.itemCarts != null){
             cart.itemCarts.add(itemCart)
         } else {

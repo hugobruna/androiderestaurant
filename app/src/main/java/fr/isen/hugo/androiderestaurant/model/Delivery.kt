@@ -1,4 +1,4 @@
 package fr.isen.hugo.androiderestaurant.model
 
-class Delivery {
+data class Delivery(var address: Address) {
 }

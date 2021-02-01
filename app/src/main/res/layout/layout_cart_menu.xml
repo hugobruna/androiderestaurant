@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actionCart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:contentDescription="@string/desc_img_cart"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iconCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/azure_500"
+        android:backgroundTint="@color/azure_500"
+        android:contentDescription="@string/default_quantity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+
+
+    <TextView
+        android:id="@+id/textBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#4CAF50"
+        android:backgroundTint="#4CAF50"
+        android:ellipsize="none"
+        android:padding="2dp"
+        android:text="@string/quantity_default"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/iconCart"
+        app:layout_constraintEnd_toEndOf="@+id/iconCart"
+        app:layout_constraintStart_toStartOf="@+id/iconCart"
+        app:layout_constraintTop_toTopOf="@+id/iconCart" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import fr.isen.hugo.androiderestaurant.databinding.ActivityHomeBinding
+import fr.isen.hugo.androiderestaurant.databinding.LayoutCartMenuBinding
 
 private lateinit var binding: ActivityHomeBinding
+private lateinit var bindingCartMenu: LayoutCartMenuBinding
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +40,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.buttonHotel.setOnClickListener {
-            Toast.makeText(applicationContext, "Hotel", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, CategoryListActivity::class.java)
-            intent.putExtra("category", "Booking Hotel")
-            startActivity(intent)
+            val listItemCartActivity = Intent(this, ListItemCartActivity::class.java)
+            startActivity(listItemCartActivity)
         }
-
     }
 
     override fun onDestroy() {

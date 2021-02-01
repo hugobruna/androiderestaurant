@@ -12,4 +12,19 @@
     <string name="text_desc_plus">plus</string>
     <string name="text_desc_minus">minus</string>
     <string name="default_quantity">1</string>
+    <string name="button_pay">continue and pay</string>
+    <string name="cart_button">cart</string>
+    <string name="quantity_default">0</string>
+    <string name="desc_img_cart">cart picture button</string>
+    <string name="input_last_name">lastname</string>
+    <string name="input_first_name">firstname</string>
+    <string name="input_email">email@example.com</string>
+    <string name="input_address">0</string>
+    <string name="input_password">*****</string>
+    <string name="label_last_name">Last name</string>
+    <string name="label_first_name">First name</string>
+    <string name="label_email">Email</string>
+    <string name="label_address">Address</string>
+    <string name="label_password">Password</string>
+    <string name="button_sign_up">Sign Up</string>
 </resources>
