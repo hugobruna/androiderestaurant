@@ -7,6 +7,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    sourceSets.main.res.filter.exclude 'app/java/fr/isen/hugo/androiderestaurant/payment/*'
+
     defaultConfig {
         applicationId "fr.isen.hugo.androiderestaurant"
         minSdkVersion 21
@@ -33,6 +35,17 @@ android {
     buildFeatures {
         viewBinding true
     }
+    rootProject.allprojects {
+        repositories {
+            maven {
+                url  "https://cardinalcommerce.bintray.com/android"
+                credentials {
+                    username 'braintree-team-sdk@cardinalcommerce'
+                    password '220cc9476025679c4e5c843666c27d97cfb0f951'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -45,7 +58,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.android.volley:volley:1.1.1'
-    implementation 'com.android.ndk.thirdparty:openssl:1.1.1d-alpha-1'
+    implementation "org.mindrot:jbcrypt:0.4"
+    implementation 'com.braintreepayments.api:drop-in:5.1.0'
+    implementation 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'com.google.android.gms:play-services-wallet:16.0.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

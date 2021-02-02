@@ -1,14 +1,17 @@
 package fr.isen.hugo.androiderestaurant
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.squareup.picasso.Picasso
 import fr.isen.hugo.androiderestaurant.databinding.ActivityItemCartBinding
 import fr.isen.hugo.androiderestaurant.model.Cart
 
-class ListItemCartAdapter(val cart: Cart, val buttonPay:Button):
+class ListItemCartAdapter(val cart: Cart, val buttonPay:Button, val menuActivity:  MenuActivity):
         RecyclerView.Adapter<ListItemCartAdapter.CartHolder>() {
     override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -29,6 +32,7 @@ class ListItemCartAdapter(val cart: Cart, val buttonPay:Button):
             cartWriteToFile(cart, holder.layout.context)
             buttonPay.text = "Pay " + getTotalPrice(cart).toString() + " €"
             notifyDataSetChanged()
+            menuActivity.invalidateOptionsMenu()
         }
     }
     override fun getItemCount(): Int = cart.itemCarts.size

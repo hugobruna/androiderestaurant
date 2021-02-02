@@ -16,6 +16,7 @@ class HomeActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        invalidateOptionsMenu()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.buttonStarter.setOnClickListener{

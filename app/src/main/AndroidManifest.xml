@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ListItemCartActivity" />
         <activity android:name=".DishActivity" />

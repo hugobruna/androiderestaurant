@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.material.internal.ContextUtils
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.hugo.androiderestaurant.databinding.ActivityDishBinding
 import fr.isen.hugo.androiderestaurant.model.Cart
@@ -80,6 +81,7 @@ class DishActivity : MenuActivity() {
             cart.itemCarts = mutableListOf(itemCart)
         }
         cartWriteToFile(cart, applicationContext)
+        invalidateOptionsMenu()
     }
 
 

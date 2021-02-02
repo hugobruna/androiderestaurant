@@ -26,49 +26,52 @@ class SignUpActivity : MenuActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         title = "Sign Up"
-        var user = User("","","", "", "")
-        setContentView(R.layout.activity_sign_up)
+        setContentView(binding.root)
 
         binding.buttonSubmitSignUp.setOnClickListener {
+            var user = User("","","", "", "")
             user.firstname = binding.inputFirstName.text.toString()
             user.lastname = binding.inputLastName.text.toString()
             user.email = binding.inputEmail.text.toString()
             user.password = binding.inputPassword.text.toString()
             user.address = binding.inputAddress.text.toString()
 
-            val positiveButtonClick = { dialog: DialogInterface, which: Int ->
-                Toast.makeText(applicationContext,
-                    android.R.string.yes, Toast.LENGTH_SHORT).show()
-            }
-
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Androidly Alert")
-            builder.setMessage("We have a message")
-            builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
-
             var validation : Boolean = false
             var message = StringBuilder()
             if(user.verifyFirstname()){
                 if (user.verifyLastname()){
                     if(user.verifyEmail()){
-                        if (user.verifyPassword()){
+                        if (user.verifyValidationPassword()){
                             validation = true
                         } else {
                             message.append("Password Invalid ! must contain 8 characters\n")
+                            binding.inputPassword.setError(message)
                         }
                     } else {
                         message.append("Email Invalid ! This is not an email\n")
+                        binding.inputEmail.setError(message)
                     }
                 } else {
                     message.append("Last name Invalid ! This is not a name\n")
+                    binding.inputLastName.setError(message)
                 }
             } else {
                 message.append("First name Invalid ! This is not a name\n")
+                binding.inputFirstName.setError(message)
             }
 
             if(validation){
                 sendSignUp(user)
             } else {
+                val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+                    Toast.makeText(applicationContext,
+                        android.R.string.yes, Toast.LENGTH_SHORT).show()
+                }
+
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Invalid Information")
+                builder.setMessage(message)
+                builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
                 builder.show()
             }
 
@@ -86,6 +89,7 @@ class SignUpActivity : MenuActivity() {
         postData.put("email", user.email)
         postData.put("password", user.password)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData, {
+            Log.i("SignUpActivity", it.toString())
            /*val gson: dataResult = Gson().fromJson(it.toString(), dataResult::class.java)
             gson.data.firstOrNull { it.name == category }?.dishes?.let { dishes ->
                 displayDishes(dishes)

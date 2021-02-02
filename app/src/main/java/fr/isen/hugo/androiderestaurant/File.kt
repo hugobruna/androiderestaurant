@@ -23,7 +23,7 @@ fun cartWriteToFile(cart: Cart, context: Context) {
 
 
 fun cartReadFromFile(context: Context): Cart {
-    var ret = ""
+    var ret: String
     var cart = Cart(mutableListOf(), null, null)
     val f = File("./data/data/fr.isen.hugo.androiderestaurant/files/cart.txt")
     if (f.exists() && !f.isDirectory) {

@@ -21,6 +21,7 @@ private lateinit var binding: ActivityCategoryListBinding
 class CategoryListActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        invalidateOptionsMenu()
         binding = ActivityCategoryListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val category = intent.getStringExtra("category")
