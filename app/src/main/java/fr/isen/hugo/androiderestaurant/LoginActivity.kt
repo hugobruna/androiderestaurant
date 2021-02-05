@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import fr.isen.hugo.androiderestaurant.databinding.ActivityLoginBinding
 import fr.isen.hugo.androiderestaurant.model.User
 import fr.isen.hugo.androiderestaurant.model.dataResultLogin
+import fr.isen.hugo.androiderestaurant.payment.demo.PaymentActivity
 import org.json.JSONObject
 
 

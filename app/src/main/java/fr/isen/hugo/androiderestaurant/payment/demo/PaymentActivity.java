@@ -28,7 +28,6 @@ import com.braintreepayments.api.models.ThreeDSecureAdditionalInformation;
 import com.braintreepayments.api.models.ThreeDSecurePostalAddress;
 import com.braintreepayments.api.models.ThreeDSecureRequest;
 import com.braintreepayments.api.models.VenmoAccountNonce;
-import com.braintreepayments.cardform.view.CardForm;
 import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
@@ -40,7 +39,7 @@ import fr.isen.hugo.androiderestaurant.R;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class MainActivity extends BaseActivity implements PaymentMethodNonceCreatedListener,
+public class PaymentActivity extends BaseActivity implements PaymentMethodNonceCreatedListener,
         BraintreeCancelListener, BraintreeErrorListener, DropInResult.DropInResultListener {
 
     private static final int DROP_IN_REQUEST = 100;
@@ -68,7 +67,9 @@ public class MainActivity extends BaseActivity implements PaymentMethodNonceCrea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment_test_activity);
+        setContentView(R.layout.activity_payment);
+
+        setTitle("Payment");
 
         mPaymentMethod = findViewById(R.id.payment_method);
         mPaymentMethodIcon = findViewById(R.id.payment_method_icon);
@@ -266,7 +267,7 @@ public class MainActivity extends BaseActivity implements PaymentMethodNonceCrea
         mPaymentMethodTitle.setText(paymentMethodNonce.getTypeLabel());
         mPaymentMethodDescription.setText(paymentMethodNonce.getDescription());
         mPaymentMethod.setVisibility(VISIBLE);
-
+/*
         mNonceString.setText(getString(R.string.nonce) + ": " + mNonce.getNonce());
         mNonceString.setVisibility(VISIBLE);
 
@@ -306,7 +307,7 @@ public class MainActivity extends BaseActivity implements PaymentMethodNonceCrea
 
         mDeviceData.setText("Device Data: " + deviceData);
         mDeviceData.setVisibility(VISIBLE);
-
+*/
         mAddPaymentMethodButton.setVisibility(GONE);
         mPurchaseButton.setEnabled(true);
     }

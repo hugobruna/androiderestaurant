@@ -1,12 +1,12 @@
 package fr.isen.hugo.androiderestaurant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import fr.isen.hugo.androiderestaurant.databinding.ActivityHomeBinding
 import fr.isen.hugo.androiderestaurant.databinding.LayoutCartMenuBinding
+import fr.isen.hugo.androiderestaurant.payment.demo.PaymentActivity
 
 private lateinit var binding: ActivityHomeBinding
 private lateinit var bindingCartMenu: LayoutCartMenuBinding
@@ -38,11 +38,6 @@ class HomeActivity : MenuActivity() {
             val intent = Intent(this, CategoryListActivity::class.java)
             intent.putExtra("category", "Dessert")
             startActivity(intent)
-        }
-
-        binding.buttonHotel.setOnClickListener {
-            val listItemCartActivity = Intent(this, ListItemCartActivity::class.java)
-            startActivity(listItemCartActivity)
         }
     }
 

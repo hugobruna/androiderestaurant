@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.hugo.androiderestaurant.databinding.ActivityListItemCartBinding
 import fr.isen.hugo.androiderestaurant.model.Cart
+import fr.isen.hugo.androiderestaurant.payment.demo.PaymentActivity
 
 private lateinit var binding: ActivityListItemCartBinding
 
