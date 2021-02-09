@@ -45,4 +45,8 @@ class HomeActivity : MenuActivity() {
         super.onDestroy()
         Log.i("INFO APP","Home Activity is killed")
     }
+
+    override fun onBackPressed() {
+
+    }
 }

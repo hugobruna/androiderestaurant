@@ -71,3 +71,11 @@ fun getNumberItemCart(context: Context): Int{
         getSharedPrefs(context, "cart_item_number").toInt()
     }
 }
+
+fun getTotalPrice(cart : Cart): Double{
+    var total = 0.0
+    for (e in cart.itemCarts) {
+        total += e.quantity.toDouble() * e.dish.getPrice()
+    }
+    return total
+}

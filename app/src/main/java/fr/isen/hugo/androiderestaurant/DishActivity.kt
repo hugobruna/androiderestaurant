@@ -41,24 +41,31 @@ class DishActivity : MenuActivity() {
             }
 
         }
+        val total = (dishDetails?.getPrice() ?: 0.0)
+        binding.buttonAddCart.text = "Add to cart $total €"
 
         binding.editNumberDish.setOnClickListener{
             val quantity = binding.editNumberDish.text.toString().toDouble()
-            if(quantity > 1) {
+            if(quantity > 0) {
                 val total = quantity * (dishDetails?.getPrice() ?: 0.0)
                 binding.buttonAddCart.text = "Add to cart $total €"
             }
         }
 
         binding.increaseButton.setOnClickListener {
-            val quantity = binding.editNumberDish.text.toString().toInt() +1
-            binding.editNumberDish.setText(quantity)
+            val quantity = binding.editNumberDish.text.toString().toInt()+1
+            val total = quantity * (dishDetails?.getPrice() ?: 0.0)
+            binding.buttonAddCart.text = "Add to cart $total €"
+            binding.editNumberDish.setText(quantity.toString())
+
         }
 
-        binding.increaseButton.setOnClickListener {
-            val quantity = binding.editNumberDish.text.toString().toInt() -1
-            if(quantity > 1) {
-                binding.editNumberDish.setText(quantity)
+        binding.discreaseButton.setOnClickListener {
+            val quantity = binding.editNumberDish.text.toString().toInt()-1
+            if(quantity > 0) {
+                val total = quantity * (dishDetails?.getPrice() ?: 0.0)
+                binding.buttonAddCart.text = "Add to cart $total €"
+                binding.editNumberDish.setText(quantity.toString())
             }
         }
 

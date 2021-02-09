@@ -42,10 +42,6 @@ class CategoryListActivity : MenuActivity() {
                 displayDishes(dishes)
             } ?: run {
                 Log.e("CategoryListActivity", "Noting found :(")
-                /*
-                binding.categoryLoading.visibility = View.GONE
-                binding.categoryErrorMessage.text = "Nothing found :("
-                 */
             }
         },{
             Log.e("CategoryListActivity",  it.toString())
@@ -54,7 +50,6 @@ class CategoryListActivity : MenuActivity() {
     }
 
     private fun displayDishes(dishes: List<Dish>){
-        // binding.categoryLoading.visibility = View.GONE
         binding.listCategory.layoutManager = LinearLayoutManager(this)
         binding.listCategory.adapter = CategoryListAdapter(dishes) {
             val intent = Intent(this, DishActivity::class.java)

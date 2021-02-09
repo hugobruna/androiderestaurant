@@ -56,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_AUTHORIZATION)) {
             mAuthorization = savedInstanceState.getString(KEY_AUTHORIZATION);
         }
+
     }
 
     @Override
@@ -77,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
             handleAuthorizationState();
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -153,6 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
             mAuthorization = Settings.getEnvironmentTokenizationKey(this);
             onAuthorizationFetched();
         } else {
+
             DemoApplication.getApiClient(this).getClientToken(Settings.getCustomerId(this),
                     Settings.getMerchantAccountId(this), new Callback<ClientToken>() {
                         @Override
@@ -167,11 +170,15 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
 
                         @Override
                         public void failure(RetrofitError error) {
+                            showDialog("ERROR : Impossible to connect to server payment");
+                            /*
                             showDialog("Unable to get a client token. Response Code: " +
                                     error.getResponse().getStatus() + " Response body: " +
-                                    error.getResponse().getBody());
+                                    error.getResponse().getBody());*/
                         }
                     });
+
+
         }
     }
 

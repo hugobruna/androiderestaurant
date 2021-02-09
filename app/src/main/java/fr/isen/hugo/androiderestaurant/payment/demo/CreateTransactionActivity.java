@@ -34,6 +34,7 @@ import retrofit.RetrofitError;
 import static fr.isen.hugo.androiderestaurant.FileKt.cartReadFromFile;
 import static fr.isen.hugo.androiderestaurant.FileKt.cartWriteToFile;
 import static fr.isen.hugo.androiderestaurant.FileKt.getSharedPrefs;
+import static fr.isen.hugo.androiderestaurant.FileKt.getTotalPrice;
 import static fr.isen.hugo.androiderestaurant.FileKt.setSharedPrefs;
 import com.google.gson.Gson;
 
@@ -110,16 +111,16 @@ public class CreateTransactionActivity extends AppCompatActivity {
         };
 
         if (Settings.isThreeDSecureEnabled(this) && Settings.isThreeDSecureRequired(this)) {
-            DemoApplication.getApiClient(this).createTransaction(nonce.getNonce(),
+            DemoApplication.getApiClient(this).createTransaction(String.valueOf(getTotalPrice(cartReadFromFile(getApplicationContext()))), nonce.getNonce(),
                     Settings.getThreeDSecureMerchantAccountId(this), true, callback);
         } else if (Settings.isThreeDSecureEnabled(this)) {
-            DemoApplication.getApiClient(this).createTransaction(nonce.getNonce(),
+            DemoApplication.getApiClient(this).createTransaction(String.valueOf(getTotalPrice(cartReadFromFile(getApplicationContext()))), nonce.getNonce(),
                     Settings.getThreeDSecureMerchantAccountId(this), callback);
         } else if (nonce instanceof CardNonce && ((CardNonce) nonce).getCardType().equals("UnionPay")) {
             DemoApplication.getApiClient(this).createTransaction(nonce.getNonce(),
                     Settings.getUnionPayMerchantAccountId(this), callback);
         } else {
-            DemoApplication.getApiClient(this).createTransaction(nonce.getNonce(), Settings.getMerchantAccountId(this),
+            DemoApplication.getApiClient(this).createTransaction(String.valueOf(getTotalPrice(cartReadFromFile(getApplicationContext()))), nonce.getNonce(), Settings.getMerchantAccountId(this),
                     callback);
         }
     }

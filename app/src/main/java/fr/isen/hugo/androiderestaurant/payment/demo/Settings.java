@@ -14,10 +14,11 @@ public class Settings {
 
     private static final String VERSION = "version";
 
-    private static final String SANDBOX_BASE_SERVER_URL = "https://braintree-sample-merchant.herokuapp.com";
+    //private static final String SANDBOX_BASE_SERVER_URL = "https://braintree-sample-merchant.herokuapp.com/";
+    private static final String SANDBOX_BASE_SERVER_URL = "http://10.0.2.2:8001/";
     private static final String PRODUCTION_BASE_SERVER_URL = "https://executive-sample-merchant.herokuapp.com";
 
-    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn";
+    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_q7qrfz96_2w4fymxfqy2znjwk";
     private static final String PRODUCTION_TOKENIZATION_KEY = "production_t2wns2y2_dfy45jdj3dxkmz5m";
 
     private static SharedPreferences sSharedPreferences;
@@ -148,7 +149,7 @@ public class Settings {
     }
 
     static boolean isSaveCardCheckBoxVisible(Context context) {
-        return getPreferences(context).getBoolean("save_card_checkbox_visible", false);
+        return getPreferences(context).getBoolean("save_card_checkbox_visible", true);
     }
 
     static boolean defaultVaultSetting(Context context) {

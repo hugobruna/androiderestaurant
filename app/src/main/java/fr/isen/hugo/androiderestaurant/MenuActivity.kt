@@ -36,4 +36,9 @@ open class MenuActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onBackPressed() {
+        invalidateOptionsMenu()
+        super.onBackPressed()
+    }
 }

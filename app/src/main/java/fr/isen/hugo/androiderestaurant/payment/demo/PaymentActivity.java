@@ -28,19 +28,24 @@ import com.braintreepayments.api.models.ThreeDSecureAdditionalInformation;
 import com.braintreepayments.api.models.ThreeDSecurePostalAddress;
 import com.braintreepayments.api.models.ThreeDSecureRequest;
 import com.braintreepayments.api.models.VenmoAccountNonce;
+import com.braintreepayments.cardform.view.CardForm;
 import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
 
 import androidx.cardview.widget.CardView;
 
+import fr.isen.hugo.androiderestaurant.ListItemCartActivity;
 import fr.isen.hugo.androiderestaurant.R;
+import fr.isen.hugo.androiderestaurant.model.Cart;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static fr.isen.hugo.androiderestaurant.FileKt.cartReadFromFile;
+import static fr.isen.hugo.androiderestaurant.FileKt.getTotalPrice;
 
 public class PaymentActivity extends BaseActivity implements PaymentMethodNonceCreatedListener,
-        BraintreeCancelListener, BraintreeErrorListener, DropInResult.DropInResultListener {
+               BraintreeCancelListener, BraintreeErrorListener, DropInResult.DropInResultListener {
 
     private static final int DROP_IN_REQUEST = 100;
 
@@ -90,6 +95,12 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodNonceC
     }
 
     @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(), ListItemCartActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -120,45 +131,25 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodNonceC
     public void launchDropIn(View v) {
         DropInRequest dropInRequest = new DropInRequest()
                 .clientToken(mAuthorization)
-                .requestThreeDSecureVerification(Settings.isThreeDSecureEnabled(this))
-                .collectDeviceData(Settings.shouldCollectDeviceData(this))
+                .requestThreeDSecureVerification(true)
+                .collectDeviceData(true)
                 .googlePaymentRequest(getGooglePaymentRequest())
                 .maskCardNumber(true)
                 .maskSecurityCode(true)
-                .allowVaultCardOverride(Settings.isSaveCardCheckBoxVisible(this))
-                .vaultCard(Settings.defaultVaultSetting(this))
-                .vaultManager(Settings.isVaultManagerEnabled(this))
-                .cardholderNameStatus(Settings.getCardholderNameStatus(this));
-        if (Settings.isThreeDSecureEnabled(this)) {
+                .allowVaultCardOverride(false)
+                .vaultCard(false)
+                .vaultManager(false)
+                .cardholderNameStatus(CardForm.FIELD_REQUIRED);
             dropInRequest.threeDSecureRequest(demoThreeDSecureRequest());
-        }
 
         startActivityForResult(dropInRequest.getIntent(this), DROP_IN_REQUEST);
     }
 
     private ThreeDSecureRequest demoThreeDSecureRequest() {
-        ThreeDSecurePostalAddress billingAddress = new ThreeDSecurePostalAddress()
-                .givenName("Jill")
-                .surname("Doe")
-                .phoneNumber("5551234567")
-                .streetAddress("555 Smith St")
-                .extendedAddress("#2")
-                .locality("Chicago")
-                .region("IL")
-                .postalCode("12345")
-                .countryCodeAlpha2("US");
-
-        ThreeDSecureAdditionalInformation additionalInformation = new ThreeDSecureAdditionalInformation()
-                .accountId("account-id");
 
         ThreeDSecureRequest threeDSecureRequest = new ThreeDSecureRequest()
-                .amount("1.00")
-                .versionRequested(Settings.getThreeDSecureVersion(this))
-                .email("test@email.com")
-                .mobilePhoneNumber("3125551234")
-                .billingAddress(billingAddress)
-                .additionalInformation(additionalInformation);
-
+                .amount(String.valueOf(getTotalPrice(cartReadFromFile(getApplicationContext()))))
+                .versionRequested(ThreeDSecureRequest.VERSION_2);
         return threeDSecureRequest;
     }
 
@@ -234,6 +225,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodNonceC
                     .getMessage());
         }
     }
+
 
     @Override
     protected void reset() {
@@ -339,8 +331,8 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodNonceC
     private GooglePaymentRequest getGooglePaymentRequest() {
         return new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
-                        .setTotalPrice("1.00")
-                        .setCurrencyCode("USD")
+                        .setTotalPrice(String.valueOf(getTotalPrice(cartReadFromFile(getApplicationContext()))))
+                        .setCurrencyCode("EUR")
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         .build())
                 .emailRequired(true);

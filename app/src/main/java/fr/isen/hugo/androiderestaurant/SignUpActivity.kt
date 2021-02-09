@@ -14,6 +14,8 @@ import fr.isen.hugo.androiderestaurant.databinding.ActivityListItemCartBinding
 import fr.isen.hugo.androiderestaurant.databinding.ActivitySignUpBinding
 import fr.isen.hugo.androiderestaurant.model.User
 import fr.isen.hugo.androiderestaurant.model.dataResult
+import fr.isen.hugo.androiderestaurant.model.dataResultLogin
+import fr.isen.hugo.androiderestaurant.payment.demo.PaymentActivity
 import org.json.JSONObject
 import java.lang.StringBuilder
 
@@ -89,19 +91,17 @@ class SignUpActivity : MenuActivity() {
         postData.put("email", user.email)
         postData.put("password", user.password)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, postUrl, postData, {
-            Log.i("SignUpActivity", it.toString())
-           /*val gson: dataResult = Gson().fromJson(it.toString(), dataResult::class.java)
-            gson.data.firstOrNull { it.name == category }?.dishes?.let { dishes ->
-                displayDishes(dishes)
-            } ?: run {
-                Log.e("CategoryListActivity", "Noting found :(")
-                /*
-                binding.categoryLoading.visibility = View.GONE
-                binding.categoryErrorMessage.text = "Nothing found :("
-                 */
-            }*/
+            var gson: dataResultLogin = Gson().fromJson(it.toString(), dataResultLogin::class.java)
+            when {
+                gson.verifyResult() -> {
+                    setSharedPrefs(applicationContext, "id_login", gson.data.id.toString())
+                    val intent = Intent(this, PaymentActivity::class.java)
+                    startActivity(intent)
+                }
+                else -> Log.e("SignUpActivity", "Noting found :(")
+            }
         },{
-            Log.e("CategoryListActivity",  it.toString())
+            Log.e("SignUptActivity",  it.toString())
         })
         requestQueue.add(jsonObjectRequest)
     }

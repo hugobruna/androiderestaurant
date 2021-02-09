@@ -22,6 +22,10 @@ private lateinit var binding: ActivityLoginBinding
 class LoginActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (getSharedPrefs(applicationContext, "id_login") != "") {
+            val intent = Intent(this, PaymentActivity::class.java)
+            startActivity(intent)
+        }
         title = "Login"
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -67,7 +71,6 @@ class LoginActivity : MenuActivity() {
                 builder.show()
             }
         }
-
     }
 
     private fun sendLogin(user: User) {
