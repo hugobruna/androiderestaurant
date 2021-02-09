@@ -37,8 +37,8 @@ open class MenuActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
+    override fun onResume() {
         invalidateOptionsMenu()
-        super.onBackPressed()
+        super.onResume()
     }
 }

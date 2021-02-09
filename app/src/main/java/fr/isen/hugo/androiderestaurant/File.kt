@@ -1,9 +1,12 @@
 package fr.isen.hugo.androiderestaurant
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.preference.PreferenceManager
 import android.util.Base64
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import fr.isen.hugo.androiderestaurant.model.Cart
 import java.io.*
@@ -11,7 +14,11 @@ import java.io.*
 fun cartWriteToFile(cart: Cart, context: Context) {
     try {
         val json = Gson().toJson(cart)
-        val cipher = encrypt(context, json)
+        val cipher = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            encrypt(context, json)
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
         val outputStreamWriter =
             OutputStreamWriter(context.openFileOutput("cart.txt", Context.MODE_PRIVATE))
         outputStreamWriter.write(Base64.encodeToString(cipher, Base64.DEFAULT))
@@ -40,7 +47,11 @@ fun cartReadFromFile(context: Context): Cart {
                 inputStream.close()
                 ret = stringBuilder.toString()
                 val cipher = Base64.decode(ret, Base64.DEFAULT)
-                val message = decrypt(context, cipher)
+                val message = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    decrypt(context, cipher)
+                } else {
+                    TODO("VERSION.SDK_INT < M")
+                }
                 cart = Gson().fromJson(message, Cart::class.java)
             }
         } catch (e: FileNotFoundException) {

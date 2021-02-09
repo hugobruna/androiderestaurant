@@ -1,27 +1,44 @@
 package fr.isen.hugo.androiderestaurant
 
 import android.content.Context
+import android.os.Build
 import android.preference.PreferenceManager
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import androidx.annotation.RequiresApi
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 
 
+@RequiresApi(Build.VERSION_CODES.M)
 fun encrypt(context: Context, strToEncrypt: String): ByteArray {
+    /*
+    var temp : String = strToEncrypt
+    while (temp.toByteArray().size % 16 != 0){
+        temp += "\u0020"
+    }
+    */
     val plainText = strToEncrypt.toByteArray(Charsets.UTF_8)
     val keygen = KeyGenerator.getInstance("AES")
     keygen.init(256)
     val key = keygen.generateKey()
     saveSecretKey(context, key)
+
+    //val key: SecretKey = getSecretKey()
     val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
+
     cipher.init(Cipher.ENCRYPT_MODE, key)
-    val cipherText = cipher.doFinal(plainText)
     saveInitializationVector(context, cipher.iv)
+    val cipherText = cipher.doFinal(plainText)
+
 
     val sb = StringBuilder()
     for (b in cipherText) {
@@ -30,12 +47,12 @@ fun encrypt(context: Context, strToEncrypt: String): ByteArray {
     return cipherText
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 fun decrypt(context:Context, dataToDecrypt: ByteArray): String {
     val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
     val ivSpec = IvParameterSpec(getSavedInitializationVector(context))
     cipher.init(Cipher.DECRYPT_MODE, getSavedSecretKey(context), ivSpec)
     val cipherText = cipher.doFinal(dataToDecrypt)
-
     val sb = StringBuilder()
     for (b in cipherText) {
         sb.append(b.toChar())
@@ -83,79 +100,36 @@ fun getSavedInitializationVector(context: Context) : ByteArray {
     return initializationVector
 }
 
-/*
-class RsaKeystoreWrapper {
 
-    fun hasMarshmallow() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-
-    companion object{
-        const val AES_NOPAD_TRANS = "RSA/ECB/PKCS1Padding"
-        const val ANDROID_KEYSTORE = "AndroidKeyStore"
-        const val KEY_ALIAS = "Keyalaisras"
+fun generateSecretKey(): SecretKey {
+    val keyGenerator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+    } else {
+        TODO("VERSION.SDK_INT < M")
+    }
+    val spec = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        KeyGenParameterSpec
+                .Builder("Pedro_le_plot", KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+                .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .build()
+    } else {
+        TODO("VERSION.SDK_INT < M")
     }
 
-    private fun createKeyStore(): KeyStore {
-        val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
-        keyStore.load(null)
-        return keyStore
-    }
+    keyGenerator.init(spec)
+    return keyGenerator.generateKey()
+}
 
-    fun createAsymmetricKeyPair(): KeyPair {
-        val generator: KeyPairGenerator
 
-        if (hasMarshmallow()) {
-            generator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA, ANDROID_KEYSTORE)
-            getKeyGenParameterSpec(generator)
-        } else {
-            generator = KeyPairGenerator.getInstance("RSA")
-            generator.initialize(2048)
-        }
-
-        return generator.generateKeyPair()
-    }
-
-    @TargetApi(23)
-    private fun getKeyGenParameterSpec(generator: KeyPairGenerator) {
-
-        val builder = KeyGenParameterSpec.Builder(KEY_ALIAS,
-            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-            .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
-            //.setUserAuthenticationRequired(true)
-            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
-
-        generator.initialize(builder.build())
-    }
-
-    fun getAsymmetricKeyPair(): KeyPair? {
-        val keyStore: KeyStore = createKeyStore()
-
-        val privateKey = keyStore.getKey(KEY_ALIAS, null) as PrivateKey?
-        val publicKey = keyStore.getCertificate(KEY_ALIAS)?.publicKey
-
-        return if (privateKey != null && publicKey != null) {
-            KeyPair(publicKey, privateKey)
-        } else {
-            null
-        }
-    }
-
-    fun removeKeyStoreKey() = createKeyStore().deleteEntry(KEY_ALIAS)
-
-    fun encrypt(data: String, key: Key?): String {
-        val cipher: Cipher = Cipher.getInstance(AES_NOPAD_TRANS)
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        val bytes = cipher.doFinal(data.toByteArray())
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
-    }
-
-    fun decrypt(data: String, key: Key?): String {
-        val cipher: Cipher = Cipher.getInstance(AES_NOPAD_TRANS)
-        cipher.init(Cipher.DECRYPT_MODE, key)
-        val encryptedData = Base64.decode(data, Base64.DEFAULT)
-        val decodedData = cipher.doFinal(encryptedData)
-        return String(decodedData)
+fun getSecretKey(): SecretKey {
+    val keyStore = KeyStore.getInstance("AndroidKeyStore")
+    keyStore.load(null)
+    val secretKeyEntry: KeyStore.Entry? = keyStore.getEntry("Pedro_le_plot", null)
+    return if(secretKeyEntry !is KeyStore.SecretKeyEntry){
+        generateSecretKey()
+    } else {
+        secretKeyEntry.secretKey
     }
 
 }
-
- */

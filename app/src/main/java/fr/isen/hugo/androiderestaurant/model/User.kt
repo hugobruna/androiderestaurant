@@ -17,7 +17,7 @@ data class User(var lastname: String, var firstname: String, var address: String
     }
 
     fun verifyValidationPassword() :Boolean{
-        return password.length == 8
+        return password.length >= 8
     }
 
     fun hashedPassword() :String {
