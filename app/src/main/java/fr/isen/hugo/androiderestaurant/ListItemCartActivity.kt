@@ -40,8 +40,8 @@ class ListItemCartActivity : MenuActivity() {
                 }
 
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Invalid Information")
-                builder.setMessage("No item in c")
+                builder.setTitle("Empty Cart")
+                builder.setMessage("No item in cart")
                 builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
                 builder.show()
             }
